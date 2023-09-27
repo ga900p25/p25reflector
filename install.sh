@@ -135,5 +135,5 @@ sudo chmod +x /etc/init.d/P25Reflector.sh
 # issue with insserve is unresolved 25Sep2023
 sudo insserv P25Reflector.sh
 echo
-echo "Congrats, now you can start your P25Reflector with" 
+echo "Edit /opt/P25Reflector.ini. Then you may start your P25Reflector with" 
 echo "sudo /etc/init.d/P25Reflector.sh start"
