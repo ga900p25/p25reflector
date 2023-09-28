@@ -3,11 +3,11 @@
 #
 # This script installs a P25Reflector on a Debian-like Linux-System
 # with modification of P25Reflector.ini and creation of all necessary
-# scripts to start and run the reflector. It is a derivative work of g6nhu by w4noc. Free to use without warranty. 
+# scripts to start and run the P25Reflector. It is based on the YSFReflector install.sh by g6nhu. Free to use without warranty. 
 #  Changelog:
-# 2018-01-15: initial shot
-# 2023-04-22: Edited by g6nhu to pull the reflector from the new location
-# 2023-09-23: revisions by w4noc to convert to p25reflector with dvswitch-server directory structure and improvements.
+# 2023-09-23: initial shot
+# 2023-09-25: revisions by w4noc to convert to p25reflector with dvswitch-server directory structure and improvements.
+# 2023-09-28: revisions by w4noc to comments. Example P25Reflector.ini provided. 
 ###
 echo Checking prerequisites
 ERROR=0
@@ -135,5 +135,5 @@ sudo chmod +x /etc/init.d/P25Reflector.sh
 # issue with insserve is unresolved 25Sep2023
 sudo insserv P25Reflector.sh
 echo
-echo "Edit /opt/P25Reflector.ini. Then you may start your P25Reflector with" 
+echo "Edit /opt/P25Reflector.ini see example in this repository. Then you may start your P25Reflector with" 
 echo "sudo /etc/init.d/P25Reflector.sh start"
