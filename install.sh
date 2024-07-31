@@ -1,6 +1,6 @@
 #!/bin/bash
 ### P25Reflector-Installation-Script - Release 0.4 28September2023
-#
+# 
 # This script installs a P25Reflector on a Debian-like Linux-System
 # with modification of P25Reflector.ini and creation of all necessary
 # scripts to start and run the reflector. It is a derivative work based on the YSFReflector install by g6nhu. Free to use without warranty. 
@@ -9,25 +9,26 @@
 # 2023-09-19: initial script - w4noc
 # 2023-09-23: revisions by w4noc to convert to p25reflector with dvswitch-server directory structure and improvements.
 # 2023-09-28; w4noc - add version. improve notes and revisions after testing under x86-64 DEB 10 environment. 
+# 2024-07-31; w4noc Rel 0.5 31Jul2024 - Improved prerequisite error messaging. Still an issue with cp P25Reflector.ini
 ###
-echo Checking prerequisites
+echo Checking prerequisites. Packages build-essential and git must already be installed. 
 ERROR=0
 dpkg -s git &> /dev/null
 if [ $? -eq 0 ]; then
     echo "Package git is installed!"
 else
-    echo "Package git is NOT installed!"
+    echo "Package git is NOT installed! Install the package 'git' then run install.sh again."
     ERROR=1
 fi
 dpkg -s build-essential &> /dev/null
 if [ $? -eq 0 ]; then
     echo "Package build-essential is installed!"
 else
-    echo "Package build-essential is NOT installed!"
+    echo "Package build-essential is NOT installed! Install the package 'build-essential' then run install.sh again. "
     ERROR=1
 fi
 if [ $ERROR == 1 ]; then
-    echo "Please install missing packages!"
+    echo "Exiting the script. Please install missing packages and run install.sh again!"
     exit 1
 fi
 echo Cloning repository from github
