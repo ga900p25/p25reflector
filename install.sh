@@ -40,7 +40,15 @@ echo compiling
 cd DVReflectors/P25Reflector/
 make clean all
 echo
-echo Copying ini-file
+echo "Creating path for application, ini, log, and DMRIds.dat"
+echo "The next 4 lines may fail if dvswitch-server is already installed since the path exists.Not a problem."
+sudo mkdir /var/log/mmdvm
+sudo chown root /var/log/mmdvm
+sudo mkdir /opt/P25Reflector
+sudo chown root /opt/P25Reflector
+sudo mkdir /var/lib/mmdvm
+sudo chown root /var/lib/mmdvm
+echo Copying ini-file to /opt/P25Reflector
 sudo cp P25Reflector.ini /opt/P25Reflector/P25Reflector.ini
 echo
 # not needed.
@@ -51,12 +59,11 @@ echo
 # echo Description of Reflector - 14 characters maxmimum length:
 # read -r description
 # sudo sed -i -e "s/14 characters max/${description}/g" /opt/P25Reflector/P25Reflector.ini
+echo "The next two lines may fail if group mmdvm already exists. It's not a problem." 
 sudo groupadd mmdvm
 sudo useradd mmdvm -g mmdvm -s /sbin/nologin
-sudo cp P25Reflector /usr/local/bin/P25Reflector
-# the next two lines may fail if dvswitch-server is already installed since the path exists
-sudo mkdir /var/log/mmdvm
-sudo chown mmdvm /var/log/mmdvm
+# changes compiled binary path from /usr/local/bin to /opt/P25Reflector 
+sudo cp P25Reflector /opt/P25Reflector
 # Does not correctly mod Filepath= in P25Reflector.ini. User must edit manually.
 # sudo sed -i -e "s/FilePath=./FilePath=\/var\/log\/P25Reflector/g" /opt/P25Reflector/P25Reflector.ini
 cat > P25Reflector.sh << EOF
@@ -74,7 +81,8 @@ cat > P25Reflector.sh << EOF
 ### END INIT INFO
 ## Fill in name of program here.
 PROG="P25Reflector"
-PROG_PATH="/usr/local/bin/"
+# Next line Changes prog path from PROG_PATH="/usr/local/bin/"
+PROG_PATH="/opt/P25Reflector/"
 PROG_ARGS="/opt/P25Reflector/P25Reflector.ini"
 PIDFILE="/var/run/P25Reflector.pid"
 USER="root"
@@ -139,10 +147,10 @@ exit 0
 EOF
 sudo cp P25Reflector.sh /etc/init.d/P25Reflector.sh
 sudo chmod +x /etc/init.d/P25Reflector.sh
-# issue with insserve is unresolved 25Sep2023
-sudo insserv P25Reflector.sh
 echo
-echo "Verify /opt/P25Reflector.ini is present and "edit Daemon=0, Name=/var/lib/mmdvm/DMRIds.dat, FilePath=/var/log/mmdvm, and Port="
-echo "Verify /var/log/mmdvm/DMRIds.dat is present.  
+echo "READ THESE MESSAGES ABOUT editing the ini and ensuring the DMRIds.dat is present.
+echo "Verify /opt/P25Reflector.ini is present and "edit Daemon=0, 
+echo "Name=/var/lib/mmdvm/DMRIds.dat, FilePath=/var/log/mmdvm, and Port."
+echo "Verify /var/log/mmdvm/DMRIds.dat is present.
 echo "Then you can start your reflector with" 
 echo "sudo /etc/init.d/P25Reflector.sh start"
