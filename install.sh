@@ -10,6 +10,8 @@
 # 2023-09-23: revisions by w4noc to convert to p25reflector with dvswitch-server directory structure and improvements.
 # 2023-09-28; w4noc - add version. improve notes and revisions after testing under x86-64 DEB 10 environment. 
 # 2024-07-31; w4noc Rel 0.5 31Jul2024 - Improved prerequisite error messaging. Still an issue with cp P25Reflector.ini
+# 2024-08-10; w4noc Rel 0.6 Copies P25Reflector.ini to /opt/P25Reflector. Eliminated unnecessary code. 
+# Improved notes to user to EDIT P25Reflector.ini.  User must have /var/log/mmdvm/DMRIDs.dat present.
 ###
 echo Checking prerequisites. Packages build-essential and git must already be installed. 
 ERROR=0
@@ -41,19 +43,22 @@ echo
 echo Copying ini-file
 sudo cp P25Reflector.ini /opt/P25Reflector/P25Reflector.ini
 echo
-echo Name of Reflector - 16 characters maximum length:
-read -r name
-sudo sed -i -e "s/16 characters max/${name}/g" /opt/P25Reflector/P25Reflector.ini
-echo Description of Reflector - 14 characters maxmimum length:
-read -r description
-sudo sed -i -e "s/14 characters max/${description}/g" /opt/P25Reflector/P25Reflector.ini
+# not needed.
+# echo Name of Reflector - 16 characters maximum length:
+# read -r name
+# does not do anything
+# sudo sed -i -e "s/16 characters max/${name}/g" /opt/P25Reflector/P25Reflector.ini
+# echo Description of Reflector - 14 characters maxmimum length:
+# read -r description
+# sudo sed -i -e "s/14 characters max/${description}/g" /opt/P25Reflector/P25Reflector.ini
 sudo groupadd mmdvm
 sudo useradd mmdvm -g mmdvm -s /sbin/nologin
 sudo cp P25Reflector /usr/local/bin/P25Reflector
 # the next two lines may fail if dvswitch-server is already installed since the path exists
 sudo mkdir /var/log/mmdvm
 sudo chown mmdvm /var/log/mmdvm
-sudo sed -i -e "s/FilePath=./FilePath=\/var\/log\/P25Reflector/g" /opt/P25Reflector/P25Reflector.ini
+# Does not correctly mod Filepath= in P25Reflector.ini. User must edit manually.
+# sudo sed -i -e "s/FilePath=./FilePath=\/var\/log\/P25Reflector/g" /opt/P25Reflector/P25Reflector.ini
 cat > P25Reflector.sh << EOF
 #!/bin/bash
 ### BEGIN INIT INFO
@@ -137,6 +142,7 @@ sudo chmod +x /etc/init.d/P25Reflector.sh
 # issue with insserve is unresolved 25Sep2023
 sudo insserv P25Reflector.sh
 echo
-echo "Verify /opt/P25Reflector.sh is present and edit Daemon, Name, FilePath, and Port"
+echo "Verify /opt/P25Reflector.ini is present and "edit Daemon=0, Name=/var/lib/mmdvm/DMRIds.dat, FilePath=/var/log/mmdvm, and Port="
+echo "Verify /var/log/mmdvm/DMRIds.dat is present.  
 echo "Then you can start your reflector with" 
 echo "sudo /etc/init.d/P25Reflector.sh start"
