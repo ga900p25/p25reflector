@@ -154,3 +154,8 @@ echo "Name=/var/lib/mmdvm/DMRIds.dat, FilePath=/var/log/mmdvm, and Port."
 echo "Verify /var/log/mmdvm/DMRIds.dat is present.
 echo "Then you can start your reflector with" 
 echo "sudo /etc/init.d/P25Reflector.sh start"
+echo
+echo " OR, install a service unit 'p25reflector.service' under /lib/systemd/system"
+echo " and control with systemctl start|stop|status|enable|disable p25reflector "
+echo " If you use systemctl, rm /etc/init.d/P25Reflector.sh"
+echo " That's all.. W4NOC"
