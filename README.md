@@ -14,3 +14,5 @@ Improved messaging to the user following the test to verify the packages build-e
 
 10Aug 2024 - install.sh revised.
 Improved messsaging. Removed unnecessary code.  User must edit /opt/P25Gateway.ini and be certain /var/lib/mmdvm/DMRIds.dat is present.  It will run without DVSwitch-server present.  But you will need to retrieve your own DMRIDs.dat.  Following these edits, it will compile under DEBIAN12/bookworm on a Rpi4.  build-essentials will likely be present. You will need to load git. Please also note that the DEBIAN12 firewall may be blocking UDP41000.  If P25Gateways cannot connect, check your firewall and open the UDP port selected in P25Reflector.ini.   
+
+10 Dec 2024 - 'install.sh' tested successfully on an IONOS VPS under DEBIAN 12 loaded from ISO.  If using systemd, add your own systemd unit file. As of this date, the P25Reflector Dashboard will not operate under DEBIAN 12 and PHP 8.2.26.  The lighttpd error.log would fill under PHP 7, but it is unusable under PHP8.     
