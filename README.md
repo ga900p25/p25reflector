@@ -1,4 +1,4 @@
-# p25reflector 'install.sh' - Creates a P25Reflector on an x86 PC under DEBIAN 10 and Rpi under DEBIAN 12 Bookworm (Aug 10 2024).  
+# p25reflector 'install.sh' - Creates a P25Reflector on an x86 PC under DEBIAN 10 and Rpi under DEBIAN 12 Bookworm (Dec 10 2024).  
 27 September 2023
 Free to use or distribute. It is offered without warranty. Use at your own risk. 
 This simple script install.sh will retrieve the DVReflectors including P25Reflector, compile and install on an x86 PC running DEBIAN 10.
